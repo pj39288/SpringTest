@@ -2,6 +2,7 @@ package com.doongie.test.database.model;
 
 import java.util.Date;
 
+// Entity
 public class Stores {
 	
 	private int id;

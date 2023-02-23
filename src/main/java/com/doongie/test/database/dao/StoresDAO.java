@@ -8,7 +8,7 @@ import com.doongie.test.database.model.Stores;
 
 
 @Repository
-public class StoresDAO {
+public interface StoresDAO {
 	
 	public List<Stores> selectStoresList();
 
