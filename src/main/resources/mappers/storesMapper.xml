@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.doongie.test.database.dao.StoresDAO">
+
+  	<select id="selectStoresList" resultType="com.doongie.test.database.model.Stores">
+  		SELECT 
+  			`id`
+  			, `name`
+  			, `phoneNumber`
+  			, `address`
+  			, `businessNumber`
+  			, `introduce`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM 
+  			`store`
+  			
+  	
+  	</select>	
+
+
+</mapper>
