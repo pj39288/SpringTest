@@ -25,11 +25,25 @@ public class RealtorController {
 			@RequestParam("office") String office
 			, @RequestParam("phoneNumber") String phoneNumber
 			, @RequestParam("address") String address
-			, @RequestParam("grade") String grade) {
+			, @RequestParam("grade") String grade
+			, Model model) {
+		
+		Realtor realtor = new Realtor();
+		realtor.setOffice(office);
+		realtor.setPhoneNumber(phoneNumber);
+		realtor.setAddress(address);
+		realtor.setGrade(grade);
 		
 		int count = realtorBO.addRealtor(office, phoneNumber, address, grade);
+		// int count = realtorBO.addRealtor(realtor);
 		
-		return "입력완료 : " + count;
+		model.addAttribute("realtor", realtor);
+
+		return "jsp/realtorInfo";
+
+		
+		// return "입력완료 : " + count;
+		
 	}
 	
 	
