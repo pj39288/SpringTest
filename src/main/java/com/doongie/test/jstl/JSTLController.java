@@ -182,12 +182,7 @@ public class JSTLController {
 	}
 	
 	
-	@GetMapping("/test06")
-	public String test06() {
-		
-		return "/jstl/test06";
-	}
-	
+
 	
 		
 }
