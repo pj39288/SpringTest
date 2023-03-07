@@ -16,7 +16,7 @@ import com.doongie.test.jstl.bo.WeatherBO;
 import com.doongie.test.jstl.model.Weather;
 
 @Controller
-@RequestMapping("/jstl/test06")
+@RequestMapping("/jstl/weather")
 public class WeatherController {
 	
 	@Autowired
