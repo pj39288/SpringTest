@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,12 +59,25 @@
 						<tbody>
 						<c:forEach var="weather" items="${weatherList}">
 							<tr>
-								<td>${weather.date }</td>
-								<td>${weather.weather }</td>
-								<td>${weather.temperature }</td>
-								<td>${weather.precipitation }</td>
+								<td><fmt:formatDate value="${weather.date }" pattern="yyyy년 M월 d일" /></td>
+								<c:choose>
+									<c:when test="${weather.weather eq '맑음' }">
+										<td><img src="http://marondal.com/material/images/dulumary/web/jstl/sunny.jpg"></td>
+									</c:when>
+									<c:when test="${weather.weather eq '구름조금' }">
+										<td><img src="http://marondal.com/material/images/dulumary/web/jstl/partlyCloudy.jpg"></td>
+									</c:when>
+									<c:when test="${weather.weather eq '흐림' }">
+										<td><img src="http://marondal.com/material/images/dulumary/web/jstl/cloudy.jpg"></td>
+									</c:when>
+									<c:when test="${weather.weather eq '비' }">
+										<td><img src="http://marondal.com/material/images/dulumary/web/jstl/rainy.jpg"></td>
+									</c:when>
+								</c:choose>
+								<td>${weather.temperature }℃</td>
+								<td>${weather.precipitation }mm</td>
 								<td>${weather.microDust }</td>
-								<td>${weather.windSpeed }</td>
+								<td>${weather.windSpeed }km/h</td>
 							</tr>
 						</c:forEach>
 						</tbody>
