@@ -20,4 +20,23 @@ public class FavoriteBO {
 		return favoriteDAO.selectFavoriteList();
 		
 	}
+	
+	
+	// 중복된 거 체크하는 함수
+	public boolean isDuplicateUrl(String url) {
+		
+		int count = favoriteDAO.selectCountUrl(url);
+		
+		if(count == 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+		
+		// return count != 0;
+	}
+	
+	public int deleteFavorite(int id) {
+		return favoriteDAO.deleteFavorite(id);
+	}
 }
