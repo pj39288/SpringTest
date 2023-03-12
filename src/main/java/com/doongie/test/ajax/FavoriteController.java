@@ -39,38 +39,13 @@ public class FavoriteController {
 		return "/ajax/favorite/input";
 	}
 	
-	//public String favoriteAdd(String name, String url) {
-		
-	//}
-	
-	
-	
-	// 즐겨찾기 주소를 전달받고, 해당 주소가 중복인지 확인한다
-	// 중복여부를 response에 전달함 (api형태)
-	
-	@PostMapping("/is_duplicate")
-	// api는 data형태로 return하고 그 형식은 json이다
-	public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url) {
-		
-		Map<String, Boolean> resultMap = new HashMap<>();
-		
-		if(favoriteBO.isDuplicateUrl(url)) {
-			resultMap.put("is_duplicate", true);
-		} else {
-			resultMap.put("is_duplicate", false);
-		}
-		
-		resultMap.put("is_duplicate", favoriteBO.isDuplicateUrl(url));
-		
-		return resultMap;
-		 
-	}
-	
-	@GetMapping("/delete")
+	@PostMapping("/add")
 	@ResponseBody
-	public  Map<String, String> deleteFavorite(@RequestParam("id") int id) {
+	public Map<String, String> favoriteAdd(
+					@RequestParam("name") String name
+					, @RequestParam("url") String url) {
 		
-		int count = favoriteBO.deleteFavorite(id);
+		int count = favoriteBO.addFavorite(name, url);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -81,6 +56,55 @@ public class FavoriteController {
 		}
 		
 		return resultMap;
+ 		
+		
+	}
+	
+	
+	
+	// 즐겨찾기 주소를 전달받고, 해당 주소가 중복인지 확인한다
+	// 중복여부를 response에 전달함 (api형태)
+	
+	// 즐겨찾기 주소를 전달 받고, 해당 주소가 중복되었는지 확인한다. 
+	// 중복여부를 response로 전달한다. 
+	@PostMapping("/is_duplicate")
+	@ResponseBody
+	public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url) {
+		
+		// 중복된 경우 : {"is_duplicate":true}
+		// 중복이 안된 경우 : {"is_duplicate":false}
+		
+		Map<String, Boolean> resultMap = new HashMap<>();
+		
+//		if(favoriteBO.isDuplicateUrl(url)) {
+//			resultMap.put("is_duplicate", true);
+//		} else {
+//			resultMap.put("is_duplicate", false);
+//		}
+		
+		resultMap.put("is_duplicate", favoriteBO.isDuplicateUrl(url));
+
+		return resultMap;
+		
+	}
+	
+	@GetMapping("/delete")
+	@ResponseBody
+	public Map<String, String> deleteFavorite(@RequestParam("id") int id) {
+		
+		int count = favoriteBO.deleteFavorite(id);
+		// 성공 : {"result":"success"}
+		// 	실패 : {"result":"fail"}
+		
+		Map<String, String> resultMap = new HashMap<>();
+		if(count == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+		
 	}
 	
 

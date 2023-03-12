@@ -20,6 +20,25 @@
   	
   	</select>
   	
+  	<insert id="insertFavorite" parameterType="map">
+  		INSERT INTO
+			`bookmark`
+		(
+			`name`
+			, `url`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUE 
+		(
+			#{name}
+			, #{url}
+			, now()
+			, now()
+		)
+  	
+  	</insert>
+  	
   	
   	
   	
