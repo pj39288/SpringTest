@@ -15,8 +15,12 @@
   			, `headCount`
   			, `phoneNumber`
   			, `state`
+  			, `createdAt`
+  			, `updatedAt`
   		FROM
   			`booking`
+  		ORDER BY
+  			`id` DESC
 
   	</select>
   	
@@ -29,6 +33,7 @@
   			, `day`
   			, `headCount`
   			, `phoneNumber`
+  			, `state`
   			, `createdAt`
   			, `updatedAt`
   		)
@@ -39,12 +44,41 @@
     		, #{day}
     		, #{headCount}
     		, #{phoneNumber}	
+    		, #{state}
     		, now()
     		, now()
   		)
   		
   		
   	</insert>
+  	
+  	<delete id="deleteBooking" parameterType="int">
+  		DELETE FROM
+  			`booking`
+  		WHERE
+  			`id` = #{id}
+  	
+  	</delete>
+  	
+  	<select id="selectOneBooking" parameterType="map" resultType="com.doongie.test.ajax.model.Booking">
+    	SELECT 
+  			`name`
+  			, `date`
+  			, `day`
+  			, `headCount`
+  			, `phoneNumber`
+  			, `state`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM
+  			`booking`
+  		WHERE
+  			`name` = #{name}
+  		AND
+  			`phoneNumber` = #{phoneNumber}
+  	
+  	
+  	</select>
   
   
   

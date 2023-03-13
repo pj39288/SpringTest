@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,7 @@
 				<th>숙박인원</th>
 				<th>전화번호</th>
 				<th>예약상태</th>
+				<th></th>
 			
 			</tr>
 		
@@ -47,12 +49,25 @@
 		
 			<tr>
 				<td>${booking.name }</td>
-				<td>${booking.date }</td>
+				<td><fmt:formatDate value="${booking.date }" pattern="yyyy년 M월 d일"/></td>
 				<td>${booking.day }</td>
 				<td>${booking.headCount }</td>
 				<td>${booking.phoneNumber }</td>
-				<td>${booking.state }</td>
-				<td button type="button" >삭제</td>
+				<c:choose>
+					<c:when test="${booking.state eq '확정' }">
+						<td class="text-success">${booking.state }</td>					
+					</c:when>
+					<c:when test="${booking.state eq '대기중' }">
+						<td class="text-info">${booking.state }</td>					
+					</c:when>
+					<c:when test="${booking.state eq '취소' }">
+						<td class="text-danger">${booking.state }</td>					
+					</c:when>
+					<c:otherwise>
+						<td>${booking.state }</td>
+					</c:otherwise>
+				</c:choose>
+				<td><button type="button" class="btn btn-danger btn-sm delete-btn" data-booking-id="${booking.id }" >삭제</button></td>
 			</tr>
 		
 		</c:forEach>
@@ -72,6 +87,44 @@
 	
 	
 	</footer>
+	
+	<script>
+		$(document).ready(function(){
+			$(".delete-btn").on("click", function(){
+				
+				// 삭제 버튼에 해당하는 행의 id를 얻어온다.
+				let bookingId = $(this).data("booking-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/ajax/booking/delete"
+					, data:{"id":bookingId}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						} else {
+							alert("삭제 실패")
+						}
+						
+						
+					}
+					, error:function(){
+						alert("삭제 에러");
+					}
+				
+					
+					
+				});
+				
+			});
+			
+			
+		});
+		
+		
+	
+	
+	</script>
 	
 	
 

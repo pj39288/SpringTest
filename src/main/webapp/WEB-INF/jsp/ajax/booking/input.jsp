@@ -10,7 +10,9 @@
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	
 </head>
 <body>
 	<h1 class="text-center">통나무 팬션</h1>
@@ -43,7 +45,7 @@
 		<label>전화번호</label>
 		<input type="text" class="form-control" id="phoneNumberInput">
 		
-		<button type="button" class="btn btn-warning btn-block mt-3">예약하기</button>
+		<button type="button" id="bookingBtn" class="btn btn-warning btn-block mt-3">예약하기</button>
 	<!-- 
 	</form>	
 	 -->
@@ -51,8 +53,14 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			$("#dateInput").datepicker({
+				dateFormat:"yy년 mm월 dd일"
+			});
+			
+			
 		
-			$("#addBtn").on("click", function(){
+			$("#bookingBtn").on("click", function(){
 				
 				let name = $("#nameInput").val();
 				let date = $("#dateInput").val();
@@ -72,8 +80,21 @@
 					alert("일수를 입력하세요");
 					return;
 				}
+				
+				//day가 숫자가 입력된 경우
+				//숫자가 아닌 문자가 포함된 경우
+				if(isNaN(day)) {
+					alert("숙박일수는 숫자만 입력가능합니다.");
+					return;
+				}
+				
 				if(headCount == ""){
 					alert("인원을 입력하세요");
+					return;
+				}
+				
+				if(isNaN(headCount)) {
+					alert("인원은 숫자만 입력가능합니다.");
 					return;
 				}
 				if(phoneNumber == ""){
@@ -84,7 +105,7 @@
 				
 				
 				$.ajax({
-					type:"post"
+					type:"get"
 					, url:"/ajax/booking/add"
 					, data:{"name":name, "date":date, "day":day, "headCount":headCount, "phoneNumber":phoneNumber }
 					, success:function(data){

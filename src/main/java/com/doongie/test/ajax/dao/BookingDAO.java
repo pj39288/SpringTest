@@ -18,6 +18,13 @@ public interface BookingDAO {
 			, @Param("date") Date date
 			, @Param("day") int day
 			, @Param("headCount") int headCount
+			, @Param("phoneNumber") String phoneNumber
+			, @Param("state") String state);
+	
+	public int deleteBooking(@Param("id") int id);
+	
+	public Booking selectOneBooking(
+			@Param("name") String name
 			, @Param("phoneNumber") String phoneNumber);
 	
 }
