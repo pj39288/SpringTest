@@ -38,7 +38,7 @@ public class BookingBO {
 		
 	}
 	
-	public Booking selectBooking(String name, String phoneNumber) {
+	public Booking searchBooking(String name, String phoneNumber) {
 		
 		return bookingDAO.selectOneBooking(name, phoneNumber);
 	}

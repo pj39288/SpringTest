@@ -40,7 +40,7 @@
 			<label>전화번호</label>
 			<input type="text" class="form-control" id="phoneNumberInput">
 		
-			<button type="button" id="bookingBtn" class="btn btn-warning btn-block mt-3">조회하기</button>
+			<button type="button" id="findBtn" class="btn btn-warning btn-block mt-3">조회하기</button>
 		
 		</div>
 		
@@ -51,6 +51,50 @@
 	
 	
 	</div>
+	
+	
+	<script>
+		$(document).ready(function() {
+			
+			$(#"findBtn").on("click", function(){
+			
+				let name = $(#"nameInput").val();
+				let phoneNumber =  $(#"phoneNumberInput").val();
+				
+				if(name = ""){
+					alert("이름을 입력하세요");
+				}
+				
+				if(phoneNumber = ""){
+					alert("전화번호를 입력하세요");
+				}
+				
+				
+				$.ajax({
+					
+					type:"get"
+					, url: "/ajax/booking/search"
+					, data: {"name":name, "phoneNumber":phoneNumber}
+					, success:function(data){
+						let message="이름 : " + data.name + "\n날짜 : " + data.date
+									+ "\n일수 : " + data.day + "\n인원 : " + data.headCount + "\n상태 : " + data.state;
+					}
+					, error:function(){
+						alert("조회 에러");
+					}
+					
+					
+				});
+				
+				
+			});
+			
+			
+		});
+		
+	
+	
+	</script>
 	
 	
 </body>

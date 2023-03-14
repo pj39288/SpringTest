@@ -111,13 +111,16 @@ public class BookingController {
 	}
 	
 	
-	//@GetMapping("/select")
-	//public selectBooking(
-		//	@RequestParam("name") String name
-		//	, @RequestParam("phoneNumber") String phoneNumber) {
+	@GetMapping("/search")
+	@ResponseBody
+	public Booking searchBooking(
+		@RequestParam("name") String name
+		, @RequestParam("phoneNumber") String phoneNumber) {
 		
+		return bookingBO.searchBooking(name, phoneNumber);
+				
 		
-	//}
+	}
 	
 	
 }
